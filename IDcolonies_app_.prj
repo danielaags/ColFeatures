@@ -1,26 +1,26 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="380790744" file="C:\Users\au648169\Desktop\ColFeatures\IDcolonies_app_.prj" location="C:\Users\au648169\Desktop\ColFeatures" name="IDcolonies_app_" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="4083167241" file="C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI\ScriptsID_2009\IDcolonies_app_.prj" location="C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI\ScriptsID_2009" name="IDcolonies_app_" target="target.mlapps" target-name="Package App">
     <param.appname>IDcolonies_app_</param.appname>
     <param.authnamewatermark>Daniela A. García-Soriano</param.authnamewatermark>
-    <param.email>daniela.ags13@gmail.com</param.email>
+    <param.email />
     <param.company />
     <param.icon />
     <param.icons />
-    <param.summary>This app allows you to identify bacteria colonies in agar plates. On top, it extracts relevant morphological information.</param.summary>
-    <param.description>Only one image file can be analyse at a time.</param.description>
-    <param.screenshot />
+    <param.summary>This app allows you to identify bacteria colonies in agar plates and retreives morphological information.</param.summary>
+    <param.description>The app identifies bacteria colonies in agar plates, it includes the option to tinket the threshold parameters to improve colony identification. In the app, some basic statistics are shown and the possibility to cluster colonies based on the morphological information is given.</param.description>
+    <param.screenshot>${PROJECT_ROOT}\testData\test-IDs.png</param.screenshot>
     <param.version>1.0</param.version>
     <param.products.name />
     <param.products.id />
     <param.products.version />
     <param.platforms />
     <param.output>${PROJECT_ROOT}</param.output>
-    <param.guid>e781b2fc-22d6-4498-b1cd-6fe703bf9323</param.guid>
+    <param.guid>a591d10d-7fd0-423d-b4e0-77bfc3b2e1ea</param.guid>
     <unset>
+      <param.email />
       <param.company />
       <param.icon />
       <param.icons />
-      <param.screenshot />
       <param.version />
       <param.products.name />
       <param.products.id />
@@ -32,12 +32,10 @@
       <file>${PROJECT_ROOT}\IDcolonies_app.mlapp</file>
     </fileset.main>
     <fileset.depfun />
-    <fileset.resources>
-      <file>${PROJECT_ROOT}\testData\i0_d25_30µl-nr5.tif</file>
-    </fileset.resources>
+    <fileset.resources />
     <fileset.package />
     <build-deliverables>
-      <file location="C:\Users\au648169\Desktop" name="ColFeatures" optional="false">C:\Users\au648169\Desktop\ColFeatures</file>
+      <file location="C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI" name="ScriptsID_2009" optional="false">C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI\ScriptsID_2009</file>
     </build-deliverables>
     <workflow />
     <matlab>
