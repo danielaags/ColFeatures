@@ -11,9 +11,10 @@ function[statsData] = IDcfu_Final(day0, plateN, fileimage)
     %clear
 
     %to test without function
-%     day0 = '191123';
-%     plateN = '2';
-%     fileimage = 'i0_d25_40µl-nr4';
+    day0 = '191123';
+    plateN = '2';
+    fileimage = 'masterplate';
+    plate_size = 0;
     
     %Pixel transformation from DistancePix to cm
     %pixel_size=1/DistancePix;
@@ -38,7 +39,12 @@ function[statsData] = IDcfu_Final(day0, plateN, fileimage)
     imageSize = size(I);
     %center and radius of circle ([c_col, c_row, r]). I set my center at
     %[y0,x0] = [1040, 1015] and r = 845
-    ci = [1040, 1015, 845]; 
+    if plate_size ==  1
+        ci = [1040, 1015, 845]; 
+    else
+        ci = [1040, 1015, 510];
+    end
+        
     %Make a grid the same dimensions as the original image
     [xx,yy] = ndgrid((1:imageSize(1))-ci(1),(1:imageSize(2))-ci(2));
     %Make a mask that will turn black all the area outside the plate by
@@ -51,8 +57,8 @@ function[statsData] = IDcfu_Final(day0, plateN, fileimage)
     croppedImage(:,:,3) = I(:,:,3).*mask;
 
 %Remove comments if you want to print the crooped image
-%     figure
-%     imshow(croppedImage)
+    figure
+    imshow(croppedImage)
 
 %%
     %The red channel was the most informative one, therefore for colony identification
