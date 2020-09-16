@@ -1,12 +1,12 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="4083167241" file="C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI\ScriptsID_2009\IDcolonies_app_.prj" location="C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI\ScriptsID_2009" name="IDcolonies_app_" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="972793134" file="C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI\ScriptsID_2009\IDcolonies_app_.prj" location="C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI\ScriptsID_2009" name="IDcolonies_app_" target="target.mlapps" target-name="Package App">
     <param.appname>IDcolonies_app_</param.appname>
     <param.authnamewatermark>Daniela A. García-Soriano</param.authnamewatermark>
     <param.email />
     <param.company />
     <param.icon />
     <param.icons />
-    <param.summary>This app allows you to identify bacteria colonies in agar plates and retreives morphological information.</param.summary>
+    <param.summary>This app allows you to identify bacteria colonies in agar plates. On top, it extracts relevant morphological information.</param.summary>
     <param.description>The app identifies bacteria colonies in agar plates, it includes the option to tinket the threshold parameters to improve colony identification. In the app, some basic statistics are shown and the possibility to cluster colonies based on the morphological information is given.</param.description>
     <param.screenshot>${PROJECT_ROOT}\testData\test-IDs.png</param.screenshot>
     <param.version>1.0</param.version>
