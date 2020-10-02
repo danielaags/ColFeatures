@@ -1,4 +1,4 @@
-function[statsData] = IDcfu_Final(day0, plateN, fileimage)
+function[statsData] = IDcfu_Final_GUI(day0, plateN, fileimage, platesize, brightThreshold, darkThreshold)
     %Input: day0, plate# and .tif file
     %This script identifies bacteria colonies in a petri dish. It generates a
     %mask first to avoid the outer part of the plate. Later, segmentation and
@@ -11,10 +11,9 @@ function[statsData] = IDcfu_Final(day0, plateN, fileimage)
     %clear
 
     %to test without function
-    day0 = '191123';
-    plateN = '2';
-    fileimage = 'masterplate';
-    plate_size = 0;
+%     day0 = '191123';
+%     plateN = '2';
+%     fileimage = 'i0_d25_40µl-nr4';
     
     %Pixel transformation from DistancePix to cm
     %pixel_size=1/DistancePix;
@@ -39,12 +38,13 @@ function[statsData] = IDcfu_Final(day0, plateN, fileimage)
     imageSize = size(I);
     %center and radius of circle ([c_col, c_row, r]). I set my center at
     %[y0,x0] = [1040, 1015] and r = 845
+    %get plate_size
+    plate_size = platesize;
     if plate_size ==  1
         ci = [1040, 1015, 845]; 
     else
         ci = [1040, 1015, 510];
     end
-        
     %Make a grid the same dimensions as the original image
     [xx,yy] = ndgrid((1:imageSize(1))-ci(1),(1:imageSize(2))-ci(2));
     %Make a mask that will turn black all the area outside the plate by
@@ -57,8 +57,8 @@ function[statsData] = IDcfu_Final(day0, plateN, fileimage)
     croppedImage(:,:,3) = I(:,:,3).*mask;
 
 %Remove comments if you want to print the crooped image
-    figure
-    imshow(croppedImage)
+%     figure
+%     imshow(croppedImage)
 
 %%
     %The red channel was the most informative one, therefore for colony identification
@@ -77,9 +77,11 @@ function[statsData] = IDcfu_Final(day0, plateN, fileimage)
     %There are two types of colonies on the plates, ones with higher RGB values
     %than the background and some other with lower RGB values than the
     %background. I implemented a two-step process to identify all of them.
+    brightT = brightThreshold;
+    darkT = darkThreshold;
     
     %Filter bright colonies
-    rgbBW = rgbI >=200;%imshow(rgbBW)
+    rgbBW = rgbI >= brightT;%imshow(rgbBW)
     %remove connected objects
     rgbI_nobord = imclearborder(rgbBW,8);%imshow(rgbI_nobord)
     %to fill up holes
@@ -105,7 +107,7 @@ function[statsData] = IDcfu_Final(day0, plateN, fileimage)
 %         end
 
     %Filter dark colonies
-    rgbBW = rgbI < 50;%imshow(rgbBW)
+    rgbBW = rgbI < darkT;%imshow(rgbBW)
     %remove connected objects
     rgbI_nobord = imclearborder(rgbBW,8);%imshow(rgbI_nobord)
     %rgbI_final = rgbI_nobord;
@@ -328,11 +330,11 @@ function[statsData] = IDcfu_Final(day0, plateN, fileimage)
     end
     
     % 
-    figure
+    f = figure('Visible',"off");
     imshow(I);
-    viscircles(centroid,diameter/2,'EdgeColor','b');
-    text(centroid(:,1), centroid(:,2), colony);
-    print(strcat(file,'-IDs'),'-dpng');
+    viscircles(centroid,diameter/2,'Color','g');
+    text(centroid(:,1), centroid(:,2)+diameter/2, colony, 'Color','black');
+    print(f, strcat(file,'-IDs'),'-dpng');
     close;
     
     %%
@@ -346,6 +348,9 @@ function[statsData] = IDcfu_Final(day0, plateN, fileimage)
         'RGBt_mean', RGBt_mean, 'RGBt_std', RGBt_std, 'Lab_mean', Lab_mean,...
         'Lab_std', Lab_std, 'Labt_mean', Labt_mean, 'Labt_std', Labt_std);
     save(strcat(file,'-data.mat'), 'statsData');
+    %Save xls data
+    tdata = struct2table(statsData);
+    writetable(tdata, strcat(file,'-data.xls'))
     
     %n_colonies = length(area);
 end

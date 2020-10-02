@@ -11,6 +11,11 @@
 day = '200604';
 %Name output file
 filename_matfile = 'test';
+%Plate size, for small plate type 0, big plates type 1
+platesize = 1;
+%Thresholds default
+brightThreshold = 200;
+darkThreshold = 50;
 
 %singleFolder = 1 for analysis of only one folder and singleFolder = 0 for 
 %more than one folder
@@ -37,7 +42,7 @@ if singleFolder == 1
       file = strsplit(fnames(k).name,'.');
       plate =  num2str(k);
       %Run the desired ID function.
-      IDcfu_Final(day, plate, file{1});
+      IDcfu_Final_GUI(day, plate, file{1}, platesize, brightThreshold, darkThreshold);
     end
     
     dataCollection_Final(filename_matfile);
@@ -59,7 +64,7 @@ else
           %Read the tif file
           file = strsplit(fnames(k).name,'.');
           %Run the desired ID function.
-          IDcfu_Final(day, plate, file{1});
+          IDcfu_Final_GUI(day, plate, file{1}, platesize, brightThreshold, darkThreshold);
         end
         if growth == 0
             dataCollection_Final(strcat(folders(i).name));
