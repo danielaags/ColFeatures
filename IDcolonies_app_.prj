@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="972793134" file="C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI\ScriptsID_2009\IDcolonies_app_.prj" location="C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI\ScriptsID_2009" name="IDcolonies_app_" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="3437047399" file="C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI\ScriptsID_2010\IDcolonies_app_.prj" location="C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI\ScriptsID_2010" name="IDcolonies_app_" target="target.mlapps" target-name="Package App">
     <param.appname>IDcolonies_app_</param.appname>
     <param.authnamewatermark>Daniela A. García-Soriano</param.authnamewatermark>
     <param.email />
@@ -7,20 +7,21 @@
     <param.icon />
     <param.icons />
     <param.summary>This app allows you to identify bacteria colonies in agar plates. On top, it extracts relevant morphological information.</param.summary>
-    <param.description>The app identifies bacteria colonies in agar plates, it includes the option to tinket the threshold parameters to improve colony identification. In the app, some basic statistics are shown and the possibility to cluster colonies based on the morphological information is given.</param.description>
-    <param.screenshot>${PROJECT_ROOT}\testData\test-IDs.png</param.screenshot>
+    <param.description />
+    <param.screenshot>C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI\ScriptsID_2009\testData\test-IDs.png</param.screenshot>
     <param.version>1.0</param.version>
     <param.products.name />
     <param.products.id />
     <param.products.version />
     <param.platforms />
     <param.output>${PROJECT_ROOT}</param.output>
-    <param.guid>a591d10d-7fd0-423d-b4e0-77bfc3b2e1ea</param.guid>
+    <param.guid>26d14f90-b1a5-4e06-9cea-57561352aeb4</param.guid>
     <unset>
       <param.email />
       <param.company />
       <param.icon />
       <param.icons />
+      <param.description />
       <param.version />
       <param.products.name />
       <param.products.id />
@@ -31,11 +32,13 @@
     <fileset.main>
       <file>${PROJECT_ROOT}\IDcolonies_app.mlapp</file>
     </fileset.main>
-    <fileset.depfun />
+    <fileset.depfun>
+      <file>C:\Users\au648169\Documents\MATLAB\IDcfu_Final_GUI.m</file>
+    </fileset.depfun>
     <fileset.resources />
     <fileset.package />
     <build-deliverables>
-      <file location="C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI" name="ScriptsID_2009" optional="false">C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI\ScriptsID_2009</file>
+      <file location="C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI" name="ScriptsID_2010" optional="false">C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI\ScriptsID_2010</file>
     </build-deliverables>
     <workflow />
     <matlab>
