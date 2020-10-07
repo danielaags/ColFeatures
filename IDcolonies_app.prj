@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="2340550333" file="C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI\ScriptsID_2010\IDcolonies_app.prj" location="C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI\ScriptsID_2010" name="IDcolonies_app" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="1690193812" file="C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI\ScriptsID_2010\IDcolonies_app.prj" location="C:\Users\au648169\Documents\Postdoc_TørringLab\ImagingAnalysis\Matlab_GUI\ScriptsID_2010" name="IDcolonies_app" target="target.mlapps" target-name="Package App">
     <param.appname>IDcolonies_app</param.appname>
     <param.authnamewatermark>Daniela A. García-Soriano</param.authnamewatermark>
     <param.email />
@@ -15,7 +15,7 @@
     <param.products.version />
     <param.platforms />
     <param.output>${PROJECT_ROOT}</param.output>
-    <param.guid>3bae3600-659d-460d-a609-201dea25e049</param.guid>
+    <param.guid>644a75e8-7866-4386-98ce-4e24617d6302</param.guid>
     <unset>
       <param.email />
       <param.company />
