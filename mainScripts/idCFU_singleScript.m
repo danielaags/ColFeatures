@@ -1,11 +1,13 @@
-%%
+%Copyright (c) 2021, Daniela A. Garcia-Soriano
+%All rights reserved.
+
 %The script requires three different functions: i)ID_ function, ii)
 %matching colonies time, iii)data_collection_matfiles. Functions should be 
 %added in the main MATLAB folder to be easily accesible. Depending
 %on the identificyation function use, the two other functions need to be 
 %tailored to the specific output. Since the number of columns might change
 %depending on first function used.
-%%
+
 %Inputs
 %Day of the experiment
 day = '200604';
@@ -82,3 +84,14 @@ if growth == 1
     dataCollectionGrowth_Final(filename_matfile);
 end
 
+%Licensed under the Apache License, Version 2.0 (the "License");
+%you may not use this file except in compliance with the License.
+%You may obtain a copy of the License at
+
+%    http://www.apache.org/licenses/LICENSE-2.0
+
+%Unless required by applicable law or agreed to in writing, software
+%distributed under the License is distributed on an "AS IS" BASIS,
+%WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+%See the License for the specific language governing permissions and
+%limitations under the License.
