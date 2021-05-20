@@ -1,4 +1,7 @@
 function[data] =dataCollectionGrowth_Final(filename)
+%Copyright (c) 2021, Daniela A. Garcia-Soriano
+%All rights reserved.
+
 %The function will collect into a single .mat file all the outputs from any
 %ID function. Pay attention to the columns names since the only one that
 %has that order so far is IDcfu_datapixelFinal_transversalcolonyPixel
@@ -83,4 +86,15 @@ data = struct('label', labelAll, 'sample', sampleAll, 'ID', idAll,...
      writetable(tdata, strcat(filename,'-data.xls'))
 end
 
+%Licensed under the Apache License, Version 2.0 (the "License");
+%you may not use this file except in compliance with the License.
+%You may obtain a copy of the License at
+
+%    http://www.apache.org/licenses/LICENSE-2.0
+
+%Unless required by applicable law or agreed to in writing, software
+%distributed under the License is distributed on an "AS IS" BASIS,
+%WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+%See the License for the specific language governing permissions and
+%limitations under the License.
 
