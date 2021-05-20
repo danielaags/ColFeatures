@@ -1,4 +1,7 @@
 function[statsData] = IDcfu_Final_GUI(day0, plateN, fileimage, platesize, brightThreshold, darkThreshold)
+    %Copyright (c) 2021, Daniela A. Garcia-Soriano
+    %All rights reserved.
+    
     %Input: day0, plate# and .tif file
     %This script identifies bacteria colonies in a petri dish. It generates a
     %mask first to avoid the outer part of the plate. Later, segmentation and
@@ -13,7 +16,7 @@ function[statsData] = IDcfu_Final_GUI(day0, plateN, fileimage, platesize, bright
     %to test without function
 %     day0 = '191123';
 %     plateN = '2';
-%     fileimage = 'i0_d25_40µl-nr4';
+%     fileimage = 'i0_d25_40Âµl-nr4';
     
     %Pixel transformation from DistancePix to cm
     %pixel_size=1/DistancePix;
@@ -354,3 +357,15 @@ function[statsData] = IDcfu_Final_GUI(day0, plateN, fileimage, platesize, bright
     
     %n_colonies = length(area);
 end
+
+%Licensed under the Apache License, Version 2.0 (the "License");
+%you may not use this file except in compliance with the License.
+%You may obtain a copy of the License at
+
+%    http://www.apache.org/licenses/LICENSE-2.0
+
+%Unless required by applicable law or agreed to in writing, software
+%distributed under the License is distributed on an "AS IS" BASIS,
+%WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+%See the License for the specific language governing permissions and
+%limitations under the License.
