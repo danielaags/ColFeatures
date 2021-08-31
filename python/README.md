@@ -3,10 +3,11 @@ ColFeatures is a software that allows bacteria colony identification, data extra
 
 Upload an image like the following:
 
-![Colonies pictures](/python/example/i0_d25_30ul-nr5.tif)
+![Colonies pictures](example/input.png)
 
 The output looks like this:
-![Colonies output pictures](/python/example/i0_d25_30ul-nr5_outputID.png)
+
+![Colonies output pictures](example/output.png)
 
 
 ``` 
