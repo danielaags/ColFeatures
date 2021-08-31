@@ -19,9 +19,21 @@ arguments:
         required: true
         description: 'Input image file with colonies to detect'
     -
-        key: '--background'
-        key_value_separator: ' '
+        key: ''
+        key_value_separator: ''
         default_value: ''
-        type: file
         required: false
-        description: "Add background file"
+        type: toggle
+        description: 'Add background file?'
+        options:
+            'on': '--background'
+            'off': ''
+        sub_arguments:
+            '--background':
+                -
+                    key: ''
+                    key_value_separator: ' '
+                    default_value: ''
+                    type: file
+                    required: false
+                    description: "Add background file"
