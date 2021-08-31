@@ -68,7 +68,6 @@ parser.add_argument('--file', help = '') # can be a path or a str or a number
 parser.add_argument('--background', help = "")
 args = parser.parse_args()
 
-
 #READ PICTURES
 file = args.file
 
@@ -79,12 +78,8 @@ else:
 
 img = cv2.imread(file, 1)
 
-
 #Create file name for output
-#temp = file.split('/')[2]
-#name = temp.split('.')[0]
-#name = file.split('.')[0]
-# Proposal to get file name & not path
+# Proposal to get file name
 import ntpath
 name = ntpath.basename(file).split('.')[0]
 
