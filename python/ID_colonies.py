@@ -58,29 +58,27 @@ def show_image(image, cmap_type='gray'):
     plt.axis('off')
     plt.show()
 
-#TAKE INPUTS
-# Take input from the user
-inputVal1 = input("Path of file to analyse:\n")
-# Print the input value
-print("The path is %s" %(inputVal1))
-#Deactivate if background wants to be included
-background = 0
-# Take bacground input from user
-#inputVal2 = input("Do you want to include background, type 1:\n")
-#flag = int(inputVal2)
-#if flag == 1:
-    # Take input from the user
-    #inputVal3 = input("Path of background:\n")
-    # Print the input value
-    #print("The path is %s" %(inputVal3))
+
+# Take valid inputs for BioLib using argparse
+import argparse
+
+# Load input data
+parser = argparse.ArgumentParser()
+parser.add_argument('--file', help = '') # can be a path or a str or a number
+parser.add_argument('--background', help = "")
+args = parser.parse_args()
+
 
 #READ PICTURES
-#if background = 1, then background substraction is done. This is specially useful when working with plate with dark medium.
-#background = inputVal2
-#input
-file = inputVal1
-#file = './images//round1/i2_d30_10µl-nr1.tif'
+file = args.file
+
+if args.background is not None:
+    background = args.background
+else:
+    background = 0
+
 img = cv2.imread(file, 1)
+
 
 #Create file name for output
 #temp = file.split('/')[2]
@@ -92,7 +90,7 @@ image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 #show_image(image)
 if background == 1:
     #read background
-    back = cv2.imread('./images//round1/10%NBA_background.tif')
+    back = cv2.imread('./images//round1/10%NBA_background.tif') # TODO change this path because it will not work for everyone
     #convert BGR to RGB
     back = cv2.cvtColor(back, cv2.COLOR_BGR2RGB)
     #substract background
