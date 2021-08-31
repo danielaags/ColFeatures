@@ -271,5 +271,5 @@ for i in range(df_RGB.shape[0]) :
 name_image_output = (name+'_outputID.png')
 cv2.imwrite(name_image_output, img)
 
-print("END")
-
+#print("END")
+print("![results](%s)" %name_image_output)
