@@ -37,3 +37,4 @@ arguments:
                     type: file
                     required: false
                     description: "Add background file"
+output_type: markdown
