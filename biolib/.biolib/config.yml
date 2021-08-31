@@ -1,0 +1,12 @@
+biolib_version: 2
+modules:
+    main:
+        image: 'local-docker://colfeatures:latest'
+        command: 'python3 python/ID_colonies.py '
+        working_directory: /home/biolib/
+        input_files:
+            - COPY / /home/biolib/
+        output_files:
+            - COPY /home/biolib/ /
+        source_files:
+            - COPY / /home/biolib/
