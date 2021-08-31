@@ -1,6 +1,5 @@
 FROM python:3.8-slim
 
-RUN pip install cv2
-RUN pip install skimage
-RUN pip install scipy
+RUN pip install opencv-python
+RUN pip install scikit-image
 
