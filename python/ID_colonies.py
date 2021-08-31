@@ -72,7 +72,7 @@ args = parser.parse_args()
 #READ PICTURES
 file = args.file
 
-if args.background is not "None":
+if args.background != "None":
     background = args.background
 else:
     background = 0
@@ -83,7 +83,11 @@ img = cv2.imread(file, 1)
 #Create file name for output
 #temp = file.split('/')[2]
 #name = temp.split('.')[0]
-name = file.split('.')[0]
+#name = file.split('.')[0]
+# Proposal to get file name & not path
+import ntpath
+name = ntpath.basename(file).split('.')[0]
+
 
 #convert BGR to RGB
 image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -178,10 +182,10 @@ segmented_bact_BW = np.array((segmented_bact > 1)*1)
 #label image for mapping
 image_labeled = label(segmented_bact)
 # analyze regions
-regions = regionprops_table(image_labeled, intensity_image=rgbIR, properties = ('label','centroid', 'area', 'perimeter', 
+regions = regionprops_table(image_labeled, intensity_image=rgbIR, properties = ('label','centroid', 'area', 'perimeter',
 'equivalent_diameter', 'eccentricity', 'convex_area', 'mean_intensity'))
 #turn into data frame for easy access
-df = pd.DataFrame(regions)  
+df = pd.DataFrame(regions)
 data_R = df.rename(columns={'mean_intensity':'mean_intensity-R'})
 
 #DATA FILTERING
@@ -200,7 +204,7 @@ for i in range(data_region.shape[0]):
     xunit = data_region.iloc[i][5]/2 * np.cos(th) + data_region.iloc[i][1]
     yunit = data_region.iloc[i][5]/2 * np.sin(th) + data_region.iloc[i][2]
     #Find within the boundaries. Check ci variable
-    y1 = np.array(yunit>200) 
+    y1 = np.array(yunit>200)
     y2 = np.array(yunit<1875)
     x1 = np.array(xunit>200)
     x2 = np.array(xunit<1875)
@@ -210,7 +214,7 @@ for i in range(data_region.shape[0]):
         idx.append(i)
         label_ID.append(j)
         j = j + 1
-#Filtered data frame    
+#Filtered data frame
 data_regions_R = data_region.iloc[idx]
 data_regions_R.reset_index(drop=True, inplace=True)
 data_R = data_regions_R[data_regions_R.columns[1:]]
@@ -223,7 +227,7 @@ rgbIG = rgb2gray(image[:,:,1])
 #analyze regions
 regions = regionprops_table(image_labeled, intensity_image=rgbIG, properties = ('label', 'mean_intensity'))
 #turn into data frame for easy access
-data = pd.DataFrame(regions)  
+data = pd.DataFrame(regions)
 data = data.rename(columns={'mean_intensity':'mean_intensity-G'})
 data_G = data.iloc[idx]
 
@@ -233,7 +237,7 @@ rgbIB = rgb2gray(image[:,:,2])
 # analyze regions
 regions = regionprops_table(image_labeled, intensity_image=rgbIB, properties = ('label', 'mean_intensity'))
 #turn into data frame for easy access
-data = pd.DataFrame(regions)  
+data = pd.DataFrame(regions)
 data = data.rename(columns={'mean_intensity':'mean_intensity-B'})
 data_B = data.iloc[idx]
 
@@ -255,15 +259,15 @@ df_RGB.to_csv(name_df_output)
 
 #MAP COLONIES IN PLATE
 
-#Read image again using cv2 
+#Read image again using cv2
 #img = cv2.imread(file)
 for i in range(df_RGB.shape[0]) :
     #draw circle
     cv2.circle(img,(round(df_RGB['centroid-1'][i]), round(df_RGB['centroid-0'][i])), round(df_RGB['equivalent_diameter'][i]/2), (0,255,0), 3)
-    #draw text, label 
+    #draw text, label
     cv2.putText(img, str(df_RGB['label'][i]), (round(df_RGB['centroid-1'][i]), round(df_RGB['centroid-0'][i])), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (1, 1, 1), 4)
-    
-#show image 
+
+#show image
 #cv2.imshow('image', img)
 #cv2.waitKey(0)
 #cv2.destroyAllWindows()
