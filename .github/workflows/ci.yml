@@ -4,7 +4,7 @@ on: push
 
 env:
     BIOLIB_LOG: debug
-    BIOLIB_PROJECT_URI: laurabiolib/ColFeatures
+    BIOLIB_PROJECT_URI: laurabiolib/colfeatures
     LOCAL_DOCKER_TAG: colfeatures:latest
 
 jobs:
