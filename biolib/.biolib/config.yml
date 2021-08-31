@@ -10,3 +10,18 @@ modules:
             - COPY /home/biolib/ /
         source_files:
             - COPY / /home/biolib/
+arguments:
+    -
+        key: '--file'
+        key_value_separator: ' '
+        default_value: ''
+        type: file
+        required: true
+        description: 'Input image file with colonies to detect'
+    -
+        key: '--background'
+        key_value_separator: ' '
+        default_value: ''
+        type: file
+        required: false
+        description: "Add background file"

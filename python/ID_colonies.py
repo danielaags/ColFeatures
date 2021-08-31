@@ -72,7 +72,7 @@ args = parser.parse_args()
 #READ PICTURES
 file = args.file
 
-if args.background is not None:
+if args.background is not "None":
     background = args.background
 else:
     background = 0
