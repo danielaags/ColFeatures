@@ -1,0 +1,40 @@
+biolib_version: 2
+modules:
+    main:
+        image: 'local-docker://colfeatures:latest'
+        command: 'python3 ID_colonies.py '
+        working_directory: /home/biolib/
+        input_files:
+            - COPY / /home/biolib/
+        output_files:
+            - COPY /home/biolib/ /
+        source_files:
+            - COPY / /home/biolib/
+arguments:
+    -
+        key: '--file'
+        key_value_separator: ' '
+        default_value: ''
+        type: file
+        required: true
+        description: 'Input image file with colonies to detect'
+    -
+        key: ''
+        key_value_separator: ''
+        default_value: ''
+        required: false
+        type: toggle
+        description: 'Add background file?'
+        options:
+            'on': '--background'
+            'off': ''
+        sub_arguments:
+            '--background':
+                -
+                    key: ''
+                    key_value_separator: ' '
+                    default_value: ''
+                    type: file
+                    required: false
+                    description: "Add background file"
+output_type: markdown
