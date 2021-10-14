@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 ##################################################
-## {ID_colonies is a tool to easily segment, label and estract information from bacterial colonies con a 136 mm plate}
+## {ID_colonies is a tool to easily segment, label and estract information from bacterial colonies from a 136 mm plate}
 ##################################################
 ## {Apache}
 ##################################################
@@ -45,6 +45,10 @@ from skimage.color import rgb2gray, label2rgb
 from scipy import ndimage as ndi
 from skimage.segmentation import watershed
 from skimage.feature import peak_local_max
+#To PCA
+from sklearn.preprocessing import StandardScaler
+#For clustering
+from sklearn.cluster import KMeans
 
 #To hide warnings
 import sys
@@ -66,6 +70,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--file', help = '') # can be a path or a str or a number
 parser.add_argument('--background', help = "")
+parser.add_argument('--cluster', help="Integer value to be use to cluster the data")
 args = parser.parse_args()
 
 #READ PICTURES
@@ -89,7 +94,7 @@ image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 #show_image(image)
 if background == 1:
     #read background
-    back = cv2.imread('./images//round1/10%NBA_background.tif') # TODO change this path because it will not work for everyone
+    back = cv2.imread(background[:,:,0]) # TODO change this path because it will not work for everyone
     #convert BGR to RGB
     back = cv2.cvtColor(back, cv2.COLOR_BGR2RGB)
     #substract background
@@ -109,8 +114,8 @@ else:
 #show_image(rgbIR)
 
 #CONTRAST
-p1, p90 = np.percentile(rgbIR, (1,90))
-rgb_constrast = rescale_intensity(rgbIR, in_range=(p1, p90))
+p10, p90 = np.percentile(rgbIR, (10,90))
+rgb_constrast = rescale_intensity(rgbIR, in_range=(p10, p90))
 
 #MASK AND SEGMENTATION
 #Get image size
@@ -142,7 +147,7 @@ binary_image_bright = image_area_closing
 #FOR DARK COLONIES
 #rgbI_otsu_thr = skimage.filters.threshold_otsu(rgbI_mask)
 #image_threshold_dark = (rgbI_mask < rgbI_otsu_thr)*mask
-image_threshold_dark = rgbI_mask < 50
+image_threshold_dark = rgbI_mask < 40
 #show_image(image_threshold_dark)
 image_local_open = skimage.morphology.binary_opening(image_threshold_dark, selem=skimage.morphology.disk(5))
 image_area_closing = skimage.morphology.area_closing(image_local_open)
@@ -150,7 +155,7 @@ binary_image_dark = image_area_closing
 #show_image(binary_image_dark)
 
 #FUSED BRIGHT AND DARK COLONIES
-binary_image = (binary_image_bright + binary_image_dark)
+binary_image = (binary_image_bright + binary_image_dark) * mask
 #show_image(binary_image)
 
 #WATERSHED
@@ -186,7 +191,7 @@ data_R = df.rename(columns={'mean_intensity':'mean_intensity-R'})
 #DATA FILTERING
 
 #Filter first by size and sape
-data_region = data_R.loc[(data_R['area']>50) & (data_R['eccentricity'] < 0.8)]
+data_region = data_R.loc[(data_R['area']>60) & (data_R['area']<500000) & (data_R['eccentricity'] < 0.8)]
 
 #Filter second by position on the plate
 # Calculate indexes to plot a circle and compare with the indexes in mask to remove colonies near or outside the border.
@@ -225,6 +230,7 @@ regions = regionprops_table(image_labeled, intensity_image=rgbIG, properties = (
 data = pd.DataFrame(regions)
 data = data.rename(columns={'mean_intensity':'mean_intensity-G'})
 data_G = data.iloc[idx]
+data_G.reset_index(drop=True, inplace=True)
 
 #BLUE CHANNEL
 rgbIB = rgb2gray(image[:,:,2])
@@ -235,6 +241,8 @@ regions = regionprops_table(image_labeled, intensity_image=rgbIB, properties = (
 data = pd.DataFrame(regions)
 data = data.rename(columns={'mean_intensity':'mean_intensity-B'})
 data_B = data.iloc[idx]
+data_B.reset_index(drop=True, inplace=True)
+
 
 #GENERATE UNIQUE LABELS
 name_label = []
@@ -268,8 +276,46 @@ for i in range(df_RGB.shape[0]) :
 #cv2.destroyAllWindows()
 
 #save image
-name_image_output = (name+'_outputID.png')
-cv2.imwrite(name_image_output, img)
+name_image_output_ID = (name+'_outputID.png')
+cv2.imwrite(name_image_output_ID, img)
 
 #print("END")
-print("![results](%s)" %name_image_output)
+print("![results](%s)" %name_image_output_ID)
+
+#DO CLUSTERING
+#Do clustering based on data
+features = ['equivalent_diameter', 'eccentricity', 'convex_area', 
+'mean_intensity-R', 'mean_intensity-G', 'mean_intensity-B']
+#features
+
+data = df_RGB.loc[:,features]
+
+#Normalise data as a first step
+x = StandardScaler().fit_transform(data)
+np.mean(x), np.std(x)
+
+#Clusters
+n=args.clusters
+clusters = KMeans(n_clusters=n, random_state=10).fit(x)
+d = {'cluster_n':clusters.labels_}
+clusters_n = pd.DataFrame(data=d)
+
+#Add cluster labels
+df_RGB_cluster = df_RGB.join(clusters_n)
+name_df_output = (name+'_output_clusterDF.csv')
+df_RGB_cluster.to_csv(name_df_output)
+
+#Read image again using cv2 
+#img = cv2.imread(file)
+for i in range(df_RGB.shape[0]):
+    #draw circle
+    cv2.circle(img,(round(df_RGB_cluster['centroid-1'][i]), round(df_RGB_cluster['centroid-0'][i])), round(df_RGB_cluster['equivalent_diameter'][i]/2), (0,255,0), 3)
+    #draw text, label 
+    cv2.putText(img, str(df_RGB_cluster['cluster_n'][i]), (round(df_RGB_cluster['centroid-1'][i])+30, round(df_RGB_cluster['centroid-0'][i])+10), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (1, 1, 1), 4)
+
+#save image
+name_image_output_cluster = (name+'_output_clusterID.png')
+cv2.imwrite(name_image_output_cluster, img)
+
+#print("END")
+print("![results](%s)" %name_image_output_cluster)
