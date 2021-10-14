@@ -37,4 +37,11 @@ arguments:
                     type: file
                     required: false
                     description: "Add background file"
+    -
+        key: '--cluster'
+        key_value_separator: ' '
+        default_value: '2'
+        required: true
+        type: text
+        description: Number of cluster to compute
 output_type: markdown
