@@ -306,7 +306,7 @@ name_df_output = (name+'_output_clusterDF.csv')
 df_RGB_cluster.to_csv(name_df_output)
 
 #Read image again using cv2 
-#img = cv2.imread(file)
+img = cv2.imread(file, 1)
 for i in range(df_RGB.shape[0]):
     #draw circle
     cv2.circle(img,(round(df_RGB_cluster['centroid-1'][i]), round(df_RGB_cluster['centroid-0'][i])), round(df_RGB_cluster['equivalent_diameter'][i]/2), (0,255,0), 3)
