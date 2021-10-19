@@ -295,7 +295,7 @@ x = StandardScaler().fit_transform(data)
 np.mean(x), np.std(x)
 
 #Clusters
-n=args.clusters
+n=int(args.cluster)
 clusters = KMeans(n_clusters=n, random_state=10).fit(x)
 d = {'cluster_n':clusters.labels_}
 clusters_n = pd.DataFrame(data=d)
